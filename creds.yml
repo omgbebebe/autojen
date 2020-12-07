@@ -1,0 +1,27 @@
+---
+ssh:
+- id: jenkins-bitbucket
+  description: fetch from bitbucket
+  username: jenkins
+  key: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    some private key here
+    -----END OPENSSH PRIVATE KEY-----
+- id: jenkins-deployment
+  description: ansible deployment key
+  username: jenkins
+  key: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    some private key here
+    -----END OPENSSH PRIVATE KEY-----
+
+secret:
+- id: ansible-vault
+  description: unseal a vault
+  secret: omgthisisiasecret
+
+userpassword:
+- id: jenkins_pg
+  description: interjenkins communications
+  username: jenkins
+  password: someverylongpass
