@@ -52,7 +52,12 @@ dockerTools.buildImage {
       chown -R jenkins:jenkins /var/lib/jenkins
   '';
 
-  contents = [ jenkins-server pkgs.bash pkgs.coreutils ];
+  contents = [ jenkins-server ] ++ (with pkgs; [
+    bash
+    coreutils
+    gawk
+    git
+  ]);
 
   config = {
     Cmd = [ "jenkins-server" ];
