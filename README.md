@@ -12,11 +12,6 @@ docker load < result
 ```
 
 # Configure
-Prepare Jenkins home on the host node
-```
-mkdir jenkins_home
-mkdir jenkins_home/secrets
-```
 
 ## Credentials
 Define credentials to bootstrap job. The final result should be in JSON format but you can define it as a YAML and then convert to JSON via `yq` tool.
@@ -53,11 +48,17 @@ userpassword:
 
 Convert to JSON and put to the Jenkins secret store
 ```sh
-cat creds.yml | yq . > jenkins_home/secrets/creds.json
+mkdir secrets
+cat creds.yml | yq . > secrets/creds.json
 ```
 
 # Run
 Start the Jenkins container
 ```sh
-docker run --rm --name jenkins -v $(pwd)/jenkins_home:/var/lib/jenkins -p 8888:8080 -v$(pwd)/init.groovy.d:/var/lib/jenkins/init.groovy.d jenkins-server:2.263.1
+docker run --rm \
+  --name jenkins \
+  -p 8888:8080 \
+  -v $(pwd)/secrets:/var/lib/jenkins/bundled_secrets \
+  -v$(pwd)/init.groovy.d:/var/lib/jenkins/init.groovy.d \
+  jenkins-server:2.263.1
 ```

@@ -7,7 +7,7 @@ import hudson.util.Secret
 import groovy.json.JsonSlurper
 
 
-def credsFile = new File('./secrets/creds.json')
+def credsFile = new File('./bundled_secrets/creds.json')
 def creds = new JsonSlurper().parse(credsFile)
 assert creds instanceof Map
 creds.each { entry ->
